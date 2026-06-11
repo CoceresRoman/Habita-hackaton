@@ -3,7 +3,7 @@ import type { Layer } from "./parcels";
 /* Catastro de Misiones - GeoServer WMS (http: el https tiene cert inválido).
    Tiles <img>, sin CORS. parcela_urbana cubre toda la provincia. */
 export const CATASTRO = {
-  wms: "http://www.servicios.catastro.misiones.gov.ar/geoserver/mapa/wms",
+  wms: "/catastro/mapa/wms", // vía proxy: evita mixed-content http/https en prod
   layer: "mapa:parcela_urbana",
   center: [-27.3667, -55.8961] as [number, number], // Posadas
   zoom: 16,
