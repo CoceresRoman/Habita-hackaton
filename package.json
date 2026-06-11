@@ -1,0 +1,31 @@
+{
+  "name": "habita",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "HABITA — la capa viva del suelo misionero. Pitch de IA inmobiliaria para la Cámara Inmobiliaria de Misiones.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@phosphor-icons/react": "^2.1.7",
+    "leaflet": "^1.9.4",
+    "motion": "^11.15.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/leaflet": "^1.9.12",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=18.18"
+  }
+}
