@@ -4,7 +4,7 @@ import CadastralMap from "./CadastralMap";
 import RealMap from "./RealMap";
 import FichaPanel from "./FichaPanel";
 import { LAYER_TABS } from "../data/content";
-import type { Layer, ParcelRect } from "../data/parcels";
+import type { Ficha, Layer, ParcelRect } from "../data/parcels";
 
 interface Props {
   parcels: ParcelRect[];
@@ -18,9 +18,17 @@ type MapMode = "real" | "esquema";
 
 export default function MapWorkspace({ parcels, activeIdx, setActiveIdx, layer, setLayer }: Props) {
   const [hint, setHint] = useState(true);
+  const [live, setLive] = useState<Ficha | null>(null);
   const [mode, setMode] = useState<MapMode>(
     typeof navigator !== "undefined" && navigator.onLine === false ? "esquema" : "real"
   );
+
+  const switchMode = (m: MapMode) => {
+    setLive(null);
+    setMode(m);
+  };
+
+  const ficha = mode === "real" ? live ?? parcels[activeIdx].ficha : parcels[activeIdx].ficha;
 
   return (
     <div className="workspace">
@@ -38,10 +46,10 @@ export default function MapWorkspace({ parcels, activeIdx, setActiveIdx, layer, 
         )}
         <div className="map-toolbar">
           <div className="mode-toggle" role="tablist" aria-label="Tipo de mapa">
-            <button role="tab" aria-selected={mode === "real"} className={mode === "real" ? "active" : ""} onClick={() => setMode("real")}>
+            <button role="tab" aria-selected={mode === "real"} className={mode === "real" ? "active" : ""} onClick={() => switchMode("real")}>
               Real
             </button>
-            <button role="tab" aria-selected={mode === "esquema"} className={mode === "esquema" ? "active" : ""} onClick={() => setMode("esquema")}>
+            <button role="tab" aria-selected={mode === "esquema"} className={mode === "esquema" ? "active" : ""} onClick={() => switchMode("esquema")}>
               Esquema
             </button>
           </div>
@@ -69,14 +77,14 @@ export default function MapWorkspace({ parcels, activeIdx, setActiveIdx, layer, 
 
         {mode === "real" ? (
           <div className="map-canvas">
-            <RealMap parcelCount={parcels.length} onSelect={setActiveIdx} />
+            <RealMap onLive={setLive} />
           </div>
         ) : (
           <CadastralMap parcels={parcels} activeIdx={activeIdx} onSelect={setActiveIdx} layer={layer} />
         )}
       </div>
 
-      <FichaPanel ficha={parcels[activeIdx].ficha} />
+      <FichaPanel ficha={ficha} />
     </div>
   );
 }

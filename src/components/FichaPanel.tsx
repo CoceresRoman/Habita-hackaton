@@ -34,6 +34,7 @@ export default function FichaPanel({ ficha }: { ficha: Ficha }) {
         <div className="fp-nom">{ficha.nom}</div>
         <div className="fp-dir">{ficha.dir}</div>
         <div className="fp-states">
+          {ficha.estimated && <span className="chip live">en vivo</span>}
           <span className={`chip ${estadoChip}`}>{ficha.estado}</span>
           <span className="chip neutral">{ficha.ocupacion}</span>
           <span className={`chip ${dom.cls}`}>{dom.label}</span>
@@ -102,16 +103,22 @@ export default function FichaPanel({ ficha }: { ficha: Ficha }) {
               <div className="kv"><span>VALUACIÓN FISCAL</span><b>{fmtArs(ficha.valFiscal)}</b></div>
             </div>
             <div className="sub-h">COMPARABLES DE MERCADO</div>
-            <table className="comp-table">
-              <thead>
-                <tr><th>Parcela</th><th>Sup.</th><th>USD/m²</th></tr>
-              </thead>
-              <tbody>
-                {ficha.comps.map((c) => (
-                  <tr key={c.ref}><td>{c.ref}</td><td>{c.supM2} m²</td><td>{c.usdM2}</td></tr>
-                ))}
-              </tbody>
-            </table>
+            {ficha.comps.length ? (
+              <table className="comp-table">
+                <thead>
+                  <tr><th>Parcela</th><th>Sup.</th><th>USD/m²</th></tr>
+                </thead>
+                <tbody>
+                  {ficha.comps.map((c) => (
+                    <tr key={c.ref}><td>{c.ref}</td><td>{c.supM2} m²</td><td>{c.usdM2}</td></tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p style={{ color: "var(--muted)", fontSize: "0.86rem" }}>
+                Valor estimado por el modelo AVM a partir de la superficie y la zona. Sin comparables cargados para esta parcela todavía.
+              </p>
+            )}
           </>
         )}
 

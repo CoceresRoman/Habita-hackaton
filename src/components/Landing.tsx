@@ -11,7 +11,7 @@ import Logo from "./Logo";
 import Reveal from "./Reveal";
 import WhatsappPhone from "./WhatsappPhone";
 import RealMap from "./RealMap";
-import { buildParcels } from "../data/parcels";
+import { buildParcels, type Ficha } from "../data/parcels";
 import type { ViewId } from "../data/content";
 
 interface Props {
@@ -40,8 +40,8 @@ const STEPS = [
 
 export default function Landing({ onEnter }: Props) {
   const parcels = useMemo(() => buildParcels(), []);
-  const [activeIdx, setActiveIdx] = useState(0);
-  const active = parcels[activeIdx].ficha;
+  const [live, setLive] = useState<Ficha | null>(null);
+  const active = live ?? parcels[0].ficha;
 
   return (
     <div className="lp">
@@ -134,7 +134,7 @@ export default function Landing({ onEnter }: Props) {
               </span>
             </div>
             <div className="lp-prev-map tall">
-              <RealMap parcelCount={parcels.length} onSelect={setActiveIdx} />
+              <RealMap onLive={setLive} />
             </div>
           </Reveal>
         </div>
