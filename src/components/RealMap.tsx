@@ -130,12 +130,16 @@ export default function RealMap({ onLive }: Props) {
         });
     });
 
-    const t = setTimeout(() => map.invalidateSize(), 60);
+    // The workspace mounts inside an AnimatePresence/motion.div enter animation
+    // (~220ms). Measuring mid-animation leaves Leaflet's pixel origin stale, so
+    // clicks map to the wrong latlng. Recompute size/origin both early and after
+    // the animation settles (and on any later resize).
+    const timers = [60, 280, 520].map((ms) => setTimeout(() => map.invalidateSize(), ms));
     const ro = new ResizeObserver(() => map.invalidateSize());
     ro.observe(elRef.current);
 
     return () => {
-      clearTimeout(t);
+      timers.forEach(clearTimeout);
       ro.disconnect();
       map.remove();
       mapRef.current = null;
