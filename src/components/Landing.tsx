@@ -1,18 +1,26 @@
 import { useMemo, useState } from "react";
 import {
-  StackSimple,
-  ChatCircleDots,
-  Calculator,
-  Cards,
   ArrowRight,
-  type Icon,
+  ShieldCheck,
+  Database,
+  Lightning,
+  CurrencyCircleDollar,
+  ChatsCircle,
+  Buildings,
+  Users,
+  Calendar,
+  Handshake,
 } from "@phosphor-icons/react";
+import DataFlow from "./DataFlow";
+import { GradientBackground } from "./ui/gradient-background";
 import Logo from "./Logo";
 import Reveal from "./Reveal";
-import WhatsappPhone from "./WhatsappPhone";
+import PhoneCarousel from "./PhoneCarousel";
 import RealMap from "./RealMap";
 import { buildParcels, type Ficha } from "../data/parcels";
 import type { ViewId } from "../data/content";
+
+// ViewId still used for onEnter callback
 
 interface Props {
   onEnter: (view?: ViewId) => void;
@@ -25,17 +33,22 @@ const STATS = [
   { num: "~80.000", lab: "familias sin título" },
 ];
 
-const FEATURES: { icon: Icon; title: string; body: string; view: ViewId }[] = [
-  { icon: StackSimple, title: "Mapa GIS por capas", body: "Recorré el catastro y pintá las parcelas por estado, valuación u ocupación. La capa viva sobre el plano oficial.", view: "mapa" },
-  { icon: ChatCircleDots, title: "Agente IA por WhatsApp", body: "Responde sobre lotes, precios y dominio, y pre-califica para crédito UVA. Atención 24/7 sobre datos reales.", view: "agente" },
-  { icon: Calculator, title: "Tasación automática", body: "Estimá el valor de un lote por zona, estado y servicios, calibrado con comparables de mercado.", view: "tasar" },
-  { icon: Cards, title: "Fichas con dominio", body: "Cada parcela con medidas, valuación, situación dominial e historial verificable.", view: "fichas" },
+const PILLARS = [
+  { icon: Database, title: "Datos oficiales", body: "Información directa del Catastro provincial, DGR y Registro de la Propiedad." },
+  { icon: ShieldCheck, title: "Verificable", body: "Cada dato tiene trazabilidad. La IA no inventa, encuentra y cruza fuentes." },
+  { icon: Lightning, title: "Tiempo real", body: "Actualización continua desde fuentes públicas oficiales." },
 ];
 
-const STEPS = [
-  { n: "01", title: "Nomenclatura", body: "El Catastro publica geometría y nomenclatura. Esa es la columna vertebral de cada ficha." },
-  { n: "02", title: "Cruce de fuentes", body: "La IA fusiona Registro, DGR, satélite, servicios y mercado contra cada parcela." },
-  { n: "03", title: "Ficha viva", body: "Precio, medidas, dominio y ocupación, actualizados y trazables. Lista para operar." },
+const REVENUE_STREAMS = [
+  { icon: CurrencyCircleDollar, title: "Acceso a información filtrada", body: "Suscripción para inmobiliarias y profesionales que necesitan datos catastrales verificados y actualizados." },
+  { icon: ChatsCircle, title: "Agente WhatsApp", body: "Atención automatizada 24/7 para consultas de lotes, valuaciones y pre-calificación de créditos." },
+  { icon: Buildings, title: "Gestor de consorcios", body: "Sistema de gestión para inmobiliarias y administradores de consorcios con datos integrados." },
+  { icon: Users, title: "Portal para inquilinos", body: "Plataforma donde inquilinos acceden a información verificada de propiedades y documentación." },
+];
+
+const VIABILIDAD = [
+  { icon: Calendar, title: "5 meses de desarrollo", body: "Desarrollo del MVP completo con las funcionalidades core de la plataforma." },
+  { icon: Handshake, title: "Acuerdos institucionales", body: "Requiere convenios con la Cámara Inmobiliaria, Catastro y entidades oficiales de Misiones." },
 ];
 
 export default function Landing({ onEnter }: Props) {
@@ -45,6 +58,7 @@ export default function Landing({ onEnter }: Props) {
 
   return (
     <div className="lp">
+      {/* Navigation - Executive style */}
       <header className="lp-nav">
         <div className="wrap lp-nav-inner">
           <span className="brand">
@@ -52,129 +66,186 @@ export default function Landing({ onEnter }: Props) {
             HABITA
           </span>
           <nav className="lp-links">
-            <a href="#producto">Producto</a>
-            <a href="#como">Cómo funciona</a>
+            <a href="#solucion">Solución</a>
+            <a href="#mercado">Mercado</a>
+            <a href="#viabilidad">Viabilidad</a>
             <button className="btn btn-primary btn-sm" onClick={() => onEnter("mapa")}>
-              Entrar al prototipo
+              Acceder a la plataforma
             </button>
           </nav>
         </div>
       </header>
 
-      {/* hero */}
-      <section className="lp-hero">
-        <div className="wrap lp-hero-grid">
-          <div>
-            <span className="kicker">Catastro de Misiones, con capa viva</span>
-            <h1>
-              Cada lote de Misiones,
-              <br />
-              con datos que <em>sirven</em>.
-            </h1>
-            <p className="lp-sub">
-              Mapa catastral, dominio, valuación y un agente que responde. Sobre datos oficiales del
-              Catastro, cruzados por IA.
-            </p>
-            <div className="lp-cta-row">
-              <button className="btn btn-primary" onClick={() => onEnter("mapa")}>
-                Probar el prototipo <ArrowRight size={16} weight="bold" />
-              </button>
-              <button className="btn btn-ghost" onClick={() => onEnter("agente")}>
-                Ver el agente IA
-              </button>
-            </div>
-            <div className="lp-meta">
-              {STATS.slice(0, 3).map((s) => (
-                <span key={s.lab}>
-                  <b>{s.num}</b> {s.lab}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <Reveal className="lp-phone-stage">
-            <div className="lp-phone-halo" aria-hidden="true" />
-            <WhatsappPhone />
-            <p className="lp-phone-cap">El agente responde por WhatsApp, con datos reales de cada parcela.</p>
-          </Reveal>
+      {/* SLIDE 1: Problem Statement */}
+      <section className="lp-slide lp-slide-problem">
+        <GradientBackground />
+        <div className="hero-image" aria-hidden="true">
+          <img
+            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80"
+            alt=""
+            loading="eager"
+          />
         </div>
-      </section>
-
-      {/* stats */}
-      <section className="lp-stats wrap">
-        {STATS.map((s) => (
-          <div className="lp-stat" key={s.lab}>
-            <div className="num">{s.num}</div>
-            <div className="lab">{s.lab}</div>
-          </div>
-        ))}
-      </section>
-
-      {/* live map showcase: real Catastro parcels */}
-      <section className="lp-band">
-        <div className="wrap lp-map-grid">
-          <Reveal>
-            <h2 className="lp-h2">Las parcelas reales de Misiones, en un mapa de verdad.</h2>
-            <p className="lp-lede">
-              Geometría oficial del Catastro provincial sobre el mapa real. Tocá una parcela para ver
-              su ficha viva con valuación, dominio y estado.
-            </p>
-            <div className="lp-prev-ficha" style={{ borderTop: "none", paddingLeft: 0 }}>
-              <span className="mono">{active.nom}</span>
-              <span>{active.dir}</span>
-              <b>USD {active.valUsd.toLocaleString("es-AR")}</b>
-            </div>
-            <p className="lp-map-src">Fuente: Dirección General de Catastro, Misiones (WMS).</p>
-          </Reveal>
-          <Reveal className="lp-preview" delay={0.05}>
-            <div className="lp-prev-head">
-              <span>HABITA · parcelas del Catastro</span>
-              <span className="lp-prev-dot" aria-hidden="true">
-                <i /><i /><i />
-              </span>
-            </div>
-            <div className="lp-prev-map tall">
-              <RealMap onLive={setLive} />
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* features */}
-      <section className="lp-band" id="producto">
         <div className="wrap">
-          <Reveal>
-            <h2 className="lp-h2">Una plataforma, cuatro herramientas que ya funcionan.</h2>
-            <p className="lp-lede">Cada una abre directo en el prototipo. Entrá y probalas.</p>
-          </Reveal>
-          <div className="lp-features">
-            {FEATURES.map((f, i) => (
-              <Reveal key={f.title} delay={i * 0.05}>
-                <button className="feat" onClick={() => onEnter(f.view)}>
-                  <span className="feat-ico"><f.icon size={22} weight="duotone" /></span>
-                  <h3>{f.title}</h3>
-                  <p>{f.body}</p>
-                  <span className="feat-go">Abrir <ArrowRight size={13} weight="bold" /></span>
+          <div className="hero-executive">
+            <Reveal>
+              <span className="kicker">Cámara Inmobiliaria de Misiones</span>
+              <h1 className="hero-title">
+                El mercado inmobiliario opera
+                <br />
+                con <em>información fragmentada</em>.
+              </h1>
+            </Reveal>
+
+            <Reveal delay={0.08}>
+              <div className="hero-problem">
+                <div className="hero-problem-inner">
+                  <p className="hero-statement">
+                    La falta de información confiable y accesible genera cotizaciones opacas,
+                    desconfianza y asimetría de información que perjudica tanto a compradores
+                    como a inmobiliarias.
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.14}>
+              <p className="slide-scroll-hint">Scroll para ver la solución</p>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* SLIDE 2: Solution + DataFlow */}
+      <section className="lp-slide lp-slide-solution" id="solucion">
+        <div className="wrap">
+          <div className="hero-executive">
+            <Reveal>
+              <div className="hero-solution">
+                <h2 className="hero-solution-title"><strong>HABITA</strong> resuelve esto.</h2>
+                <p className="hero-solution-text">
+                  Centralizamos y cruzamos datos oficiales con IA. La inteligencia artificial
+                  no inventa datos: los encuentra, cruza y actualiza desde fuentes oficiales.
+                </p>
+              </div>
+            </Reveal>
+
+            {/* Animated Data Flow */}
+            <DataFlow />
+
+            <Reveal delay={0.18}>
+              <div className="hero-pillars">
+                {PILLARS.map((p) => (
+                  <div key={p.title} className="hero-pillar">
+                    <span className="hero-pillar-icon">
+                      <p.icon size={20} weight="duotone" />
+                    </span>
+                    <div>
+                      <h3>{p.title}</h3>
+                      <p>{p.body}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.24}>
+              <div className="lp-cta-row hero-cta">
+                <button className="btn btn-primary" onClick={() => onEnter("mapa")}>
+                  Acceder a la plataforma <ArrowRight size={16} weight="bold" />
                 </button>
-              </Reveal>
+                <button className="btn btn-ghost" onClick={() => onEnter("agente")}>
+                  Ver demostración
+                </button>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* SLIDE 3: Stats + Map */}
+      <section className="lp-slide lp-slide-map">
+        <div className="wrap">
+          {/* Stats inline at top */}
+          <div className="lp-stats-inline">
+            {STATS.map((s) => (
+              <div className="lp-stat-inline" key={s.lab}>
+                <span className="num">{s.num}</span>
+                <span className="lab">{s.lab}</span>
+              </div>
             ))}
           </div>
+
+          <div className="lp-map-grid">
+            <Reveal>
+              <h2 className="lp-h2">Datos catastrales verificados en tiempo real.</h2>
+              <p className="lp-lede">
+                Geometría oficial del Catastro provincial integrada con valuaciones,
+                dominio y estado de cada parcela.
+              </p>
+              <div className="lp-prev-ficha" style={{ borderTop: "none", paddingLeft: 0 }}>
+                <span className="mono">{active.nom}</span>
+                <span>{active.dir}</span>
+                <b>USD {active.valUsd.toLocaleString("es-AR")}</b>
+              </div>
+              <p className="lp-map-src">Fuente: Dirección General de Catastro, Misiones (WMS).</p>
+            </Reveal>
+            <Reveal className="lp-preview" delay={0.05}>
+              <div className="lp-prev-head">
+                <span>HABITA · parcelas del Catastro</span>
+                <span className="lp-prev-dot" aria-hidden="true">
+                  <i /><i /><i />
+                </span>
+              </div>
+              <div className="lp-prev-map tall">
+                <RealMap onLive={setLive} />
+              </div>
+            </Reveal>
+          </div>
         </div>
       </section>
 
-      {/* how it works */}
-      <section className="lp-band alt" id="como">
+      {/* SLIDE 4: Apps - WhatsApp Agent + Property Swiper */}
+      <section className="lp-slide lp-slide-agent" id="agente">
+        <div className="wrap lp-agent-grid">
+          <Reveal className="lp-phone-stage">
+            <div className="lp-phone-halo" aria-hidden="true" />
+            <PhoneCarousel />
+          </Reveal>
+          <Reveal delay={0.08}>
+            <h2 className="lp-h2">Dos apps, una plataforma.</h2>
+            <p className="lp-lede">
+              Agente IA por WhatsApp para consultas sobre lotes, valuaciones y pre-calificación
+              de créditos. Explorador de propiedades estilo Tinder para deslizar entre lotes,
+              propiedades y alquileres verificados.
+            </p>
+            <p className="lp-agent-note">
+              Toda la información proviene del Catastro, Registro de la Propiedad y fuentes
+              oficiales de Misiones. Datos verificables, actualizados en tiempo real.
+            </p>
+            <button className="btn btn-ghost" onClick={() => onEnter("agente")} style={{ marginTop: 20 }}>
+              Probar el agente <ArrowRight size={14} weight="bold" />
+            </button>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* SLIDE 5: Mercado */}
+      <section className="lp-slide lp-slide-mercado" id="mercado">
         <div className="wrap">
           <Reveal>
-            <h2 className="lp-h2">De la nomenclatura a la ficha viva.</h2>
+            <h2 className="lp-h2">Mercado</h2>
+            <p className="lp-lede">
+              Modelo de negocio con múltiples fuentes de ingreso para la Cámara Inmobiliaria.
+            </p>
           </Reveal>
-          <div className="lp-steps">
-            {STEPS.map((s, i) => (
-              <Reveal key={s.n} delay={i * 0.06}>
-                <div className="step">
-                  <span className="step-n">{s.n}</span>
-                  <h3>{s.title}</h3>
-                  <p>{s.body}</p>
+          <div className="lp-revenue-grid">
+            {REVENUE_STREAMS.map((r, i) => (
+              <Reveal key={r.title} delay={i * 0.06}>
+                <div className="revenue-card">
+                  <span className="revenue-ico"><r.icon size={28} weight="duotone" /></span>
+                  <h3>{r.title}</h3>
+                  <p>{r.body}</p>
                 </div>
               </Reveal>
             ))}
@@ -182,29 +253,53 @@ export default function Landing({ onEnter }: Props) {
         </div>
       </section>
 
-      {/* closing cta */}
-      <section className="lp-cta">
-        <Reveal>
-          <h2>Entrá al prototipo y recorré el mapa.</h2>
-          <p>Datos oficiales del Catastro de Misiones, con la capa viva que les faltaba.</p>
-          <button className="btn btn-primary" onClick={() => onEnter("mapa")}>
-            Probar el prototipo <ArrowRight size={16} weight="bold" />
-          </button>
-        </Reveal>
-      </section>
+      {/* SLIDE 6: Viabilidad técnica + CTA */}
+      <section className="lp-slide lp-slide-viabilidad" id="viabilidad">
+        <div className="wrap">
+          <Reveal>
+            <h2 className="lp-h2">Viabilidad técnica</h2>
+            <p className="lp-lede">
+              Plan de implementación realista con requerimientos claros.
+            </p>
+          </Reveal>
+          <div className="lp-viabilidad-grid">
+            {VIABILIDAD.map((v, i) => (
+              <Reveal key={v.title} delay={i * 0.08}>
+                <div className="viabilidad-card">
+                  <span className="viabilidad-ico"><v.icon size={36} weight="duotone" /></span>
+                  <div>
+                    <h3>{v.title}</h3>
+                    <p>{v.body}</p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
 
-      <footer className="lp-foot">
-        <div className="wrap lp-foot-inner">
-          <span className="brand">
-            <Logo />
-            HABITA
-          </span>
-          <small>
-            Inteligencia territorial para Misiones. Prototipo de hackatón, 2026. Datos de muestra
-            sobre fuentes públicas, a tomar como referencia.
-          </small>
+          <Reveal delay={0.2}>
+            <div className="lp-final-cta">
+              <h3>Entrá al prototipo y recorré el mapa.</h3>
+              <p>Datos oficiales del Catastro de Misiones, con la capa viva que les faltaba.</p>
+              <button className="btn btn-primary" onClick={() => onEnter("mapa")}>
+                Probar el prototipo <ArrowRight size={16} weight="bold" />
+              </button>
+            </div>
+          </Reveal>
         </div>
-      </footer>
+
+        <footer className="lp-foot">
+          <div className="wrap lp-foot-inner">
+            <span className="brand">
+              <Logo />
+              HABITA
+            </span>
+            <small>
+              Inteligencia territorial para Misiones. Prototipo de hackatón, 2026. Datos de muestra
+              sobre fuentes públicas, a tomar como referencia.
+            </small>
+          </div>
+        </footer>
+      </section>
     </div>
   );
 }
