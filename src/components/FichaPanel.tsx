@@ -22,7 +22,7 @@ const DOM_CHIP: Record<DomStatus, { cls: string; label: string }> = {
 const fmtUsd = (n: number) => "USD " + n.toLocaleString("es-AR");
 const fmtArs = (n: number) => (n ? "$ " + n.toLocaleString("es-AR") : "sin partida");
 
-export default function FichaPanel({ ficha }: { ficha: Ficha }) {
+export default function FichaPanel({ ficha, onConsultAgent }: { ficha: Ficha; onConsultAgent: () => void }) {
   const [tab, setTab] = useState<Tab>("resumen");
   const dom = DOM_CHIP[ficha.dom.status];
   const estadoChip = ficha.estado === "edificado" ? "ok" : ficha.estado === "en obra" ? "warn" : "neutral";
@@ -76,7 +76,7 @@ export default function FichaPanel({ ficha }: { ficha: Ficha }) {
               </div>
             )}
             <div className="fp-actions">
-              <button className="btn btn-primary btn-sm"><ChatCircleDots size={15} weight="bold" /> Consultar al agente</button>
+              <button className="btn btn-primary btn-sm" onClick={onConsultAgent}><ChatCircleDots size={15} weight="bold" /> Consultar al agente</button>
               <button className="btn btn-ghost btn-sm"><FilePdf size={15} /> Informe</button>
             </div>
           </>

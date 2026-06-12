@@ -50,6 +50,7 @@ export default function App({ onExit, initialView = "mapa" }: AppProps) {
                   setActiveIdx={setActiveIdx}
                   layer={layer}
                   setLayer={setLayer}
+                  onConsultAgent={() => setView("agente")}
                 />
               )}
               {view === "buscar" && <SearchView parcels={parcels} onSelect={goToParcel} />}

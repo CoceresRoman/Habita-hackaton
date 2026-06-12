@@ -40,7 +40,7 @@ const PILLARS = [
 ];
 
 const REVENUE_STREAMS = [
-  { icon: CurrencyCircleDollar, title: "Acceso a información filtrada", body: "Suscripción para inmobiliarias y profesionales que necesitan datos catastrales verificados y actualizados." },
+  { icon: CurrencyCircleDollar, title: "Acceso a información seleccionada", body: "Suscripción para inmobiliarias y profesionales que necesitan datos catastrales verificados y actualizados." },
   { icon: ChatsCircle, title: "Agente WhatsApp", body: "Atención automatizada 24/7 para consultas de lotes, valuaciones y pre-calificación de créditos." },
   { icon: Buildings, title: "Gestor de consorcios", body: "Sistema de gestión para inmobiliarias y administradores de consorcios con datos integrados." },
   { icon: Users, title: "Portal para inquilinos", body: "Plataforma donde inquilinos acceden a información verificada de propiedades y documentación." },

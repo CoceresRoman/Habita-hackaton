@@ -12,11 +12,12 @@ interface Props {
   setActiveIdx: (i: number) => void;
   layer: Layer;
   setLayer: (l: Layer) => void;
+  onConsultAgent: () => void;
 }
 
 type MapMode = "real" | "esquema";
 
-export default function MapWorkspace({ parcels, activeIdx, setActiveIdx, layer, setLayer }: Props) {
+export default function MapWorkspace({ parcels, activeIdx, setActiveIdx, layer, setLayer, onConsultAgent }: Props) {
   const [hint, setHint] = useState(true);
   const [live, setLive] = useState<Ficha | null>(null);
   const [mode, setMode] = useState<MapMode>(
@@ -84,7 +85,7 @@ export default function MapWorkspace({ parcels, activeIdx, setActiveIdx, layer, 
         )}
       </div>
 
-      <FichaPanel ficha={ficha} />
+      <FichaPanel ficha={ficha} onConsultAgent={onConsultAgent} />
     </div>
   );
 }
