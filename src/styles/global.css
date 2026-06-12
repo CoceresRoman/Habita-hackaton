@@ -696,10 +696,6 @@ button { font: inherit; cursor: pointer; }
   overflow: hidden;
   position: relative;
 }
-@media (max-width: 900px) {
-  .dataflow { flex-direction: column; gap: 28px; padding: 40px 24px; }
-}
-
 .df-sources {
   display: flex;
   flex-direction: column;
@@ -707,7 +703,8 @@ button { font: inherit; cursor: pointer; }
   z-index: 2;
 }
 @media (max-width: 900px) {
-  .df-sources { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+  .dataflow { flex-direction: column; gap: 20px; padding: 32px 20px; }
+  .df-sources { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 8px; }
 }
 
 .df-source {
@@ -757,7 +754,7 @@ button { font: inherit; cursor: pointer; }
   height: 100%;
 }
 @media (max-width: 900px) {
-  .df-lines { width: 80px; height: 100px; transform: rotate(90deg); }
+  .df-lines { width: 70px; height: 80px; transform: rotate(90deg); }
 }
 
 .df-ai {
@@ -822,7 +819,7 @@ button { font: inherit; cursor: pointer; }
   overflow: visible;
 }
 @media (max-width: 900px) {
-  .df-line-out { width: 24px; height: 70px; transform: rotate(90deg); }
+  .df-line-out { width: 50px; height: 20px; transform: rotate(90deg); }
 }
 
 .df-output {
@@ -1367,6 +1364,247 @@ button { font: inherit; cursor: pointer; }
 }
 .prop-btn:active {
   transform: scale(0.95);
+}
+
+/* Property phone mobile adjustments */
+@media (max-width: 600px) {
+  .prop-head { padding: 30px 10px 8px; font-size: 0.85rem; }
+  .prop-badge { font-size: 0.6rem; padding: 2px 6px; }
+  .prop-cards { padding: 6px 10px; }
+  .prop-card { inset: 6px 10px; padding: 12px; border-radius: 12px; }
+  .prop-type { font-size: 0.6rem; top: 8px; left: 8px; padding: 3px 8px; }
+  .prop-info h3 { font-size: 0.9rem; }
+  .prop-loc { font-size: 0.68rem; margin-bottom: 6px; }
+  .prop-meta { font-size: 0.65rem; }
+  .prop-price { font-size: 0.75rem !important; }
+  .prop-stamp { font-size: 1.2rem; padding: 6px 14px; border-width: 3px; }
+  .prop-actions { gap: 18px; padding: 8px 10px 12px; }
+  .prop-btn { width: 44px; height: 44px; }
+  .prop-btn svg { width: 20px; height: 20px; }
+
+  /* WhatsApp phone mobile */
+  .wa-head { padding: 28px 10px 8px; gap: 8px; }
+  .wa-ava { width: 28px; height: 28px; font-size: 12px; }
+  .wa-who b { font-size: 0.85rem; }
+  .wa-who span { font-size: 0.65rem; }
+  .wa-actions { gap: 10px; }
+  .wa-actions svg { width: 14px; height: 14px; }
+  .wa-body { padding: 10px 8px; gap: 5px; }
+  .wa-day { font-size: 0.6rem; padding: 2px 7px; }
+  .wa-msg { padding: 6px 8px 14px; border-radius: 7px; font-size: 0.72rem; }
+  .wa-time { font-size: 0.52rem; right: 6px; bottom: 3px; }
+  .wa-input { padding: 6px 10px; gap: 8px; }
+  .wa-input span { padding: 6px 10px; font-size: 0.7rem; }
+  .wa-input svg { width: 14px; height: 14px; }
+}
+
+/* ============================================================
+   MOBILE ADAPTATIONS
+   ============================================================ */
+
+/* Mobile-first slide adjustments */
+@media (max-width: 600px) {
+  /* Base typography scaling */
+  body { font-size: 14px; }
+
+  /* Wrap padding */
+  .wrap { padding-inline: 16px; }
+
+  /* Navigation - simplified for mobile */
+  .lp-nav {
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    transform: none;
+    max-width: none;
+    width: auto;
+  }
+  .lp-nav-inner {
+    height: 48px;
+    padding: 0 6px 0 16px;
+    gap: 12px;
+  }
+  .lp-links { display: none; }
+  .brand { font-size: 0.9rem; gap: 8px; }
+  .brand .mark { width: 20px; height: 20px; }
+
+  /* Slides - reduced padding */
+  .lp-slide {
+    padding: 80px 0 40px;
+    min-height: auto;
+  }
+  .lp-slide-problem {
+    min-height: 100dvh;
+    padding: 100px 0 60px;
+  }
+  .lp-slide-solution { min-height: auto; padding: 60px 0; }
+  .lp-slide-map { min-height: auto; padding: 60px 0; }
+  .lp-slide-agent { min-height: auto; padding: 60px 0; }
+  .lp-slide-mercado { min-height: auto; padding: 60px 0; }
+  .lp-slide-viabilidad { min-height: auto; padding: 60px 0 0; }
+
+  /* Hero typography */
+  .hero-title {
+    font-size: 1.8rem;
+    margin-top: 20px;
+  }
+  .kicker { font-size: 12px; }
+  .hero-problem { margin-top: 24px; padding: 20px 0; }
+  .hero-statement { font-size: 1rem; }
+  .hero-solution { margin-top: 0; }
+  .hero-solution-title { font-size: 1.6rem; }
+  .hero-solution-text { font-size: 0.95rem; margin-top: 12px; }
+
+  /* Scroll hint */
+  .slide-scroll-hint { margin-top: 32px; font-size: 0.8rem; }
+
+  /* Hero pillars - stacked */
+  .hero-pillars { gap: 10px; margin-top: 32px; }
+  .hero-pillar { padding: 16px; gap: 12px; }
+  .hero-pillar-icon { width: 40px; height: 40px; border-radius: 10px; }
+  .hero-pillar h3 { font-size: 0.95rem; }
+  .hero-pillar p { font-size: 0.85rem; }
+
+  /* Hero CTA - hidden on mobile */
+  .hero-cta { display: none; }
+
+  /* Hide all prototype/demo buttons on mobile */
+  .lp-slide-agent .btn { display: none; }
+  .lp-final-cta { display: none; }
+
+  /* DataFlow - vertical compact */
+  .dataflow {
+    flex-direction: column;
+    padding: 24px 16px;
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .df-sources { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 6px; }
+  .df-source {
+    padding: 10px 12px;
+    flex: 0 0 auto;
+    min-width: 0;
+  }
+  .df-source-icon { width: 32px; height: 32px; }
+  .df-source-icon svg { width: 16px; height: 16px; }
+  .df-source-text span { font-size: 0.8rem; }
+  .df-source-text small { font-size: 0.65rem; }
+
+  .df-lines { width: 60px; height: 60px; transform: rotate(90deg); }
+  .df-ai { width: 100px; height: 100px; }
+  .df-ai-core { padding: 20px; }
+  .df-ai-core svg { width: 28px; height: 28px; }
+  .df-ai-core span { font-size: 0.9rem; }
+
+  .df-line-out { width: 60px; height: 20px; transform: rotate(90deg); }
+
+  .df-output {
+    padding: 16px 20px;
+    gap: 12px;
+    flex-direction: column;
+    text-align: center;
+  }
+  .df-output-icon { width: 48px; height: 48px; }
+  .df-output-icon svg { width: 24px; height: 24px; }
+  .df-output-text span { font-size: 1rem; }
+  .df-output-text small { font-size: 0.8rem; }
+
+  /* Stats inline */
+  .lp-stats-inline {
+    gap: 16px 24px;
+    margin-bottom: 32px;
+  }
+  .lp-stat-inline .num { font-size: 1.4rem; }
+  .lp-stat-inline .lab { font-size: 0.75rem; }
+
+  /* Section typography */
+  .lp-h2 { font-size: 1.5rem; }
+  .lp-lede { font-size: 0.95rem; margin-top: 12px; }
+
+  /* Map section */
+  .lp-map-grid { gap: 24px; }
+  .lp-prev-ficha { gap: 8px; flex-wrap: wrap; padding: 12px; margin-top: 16px; }
+  .lp-prev-ficha .mono { font-size: 0.85rem; }
+  .lp-prev-ficha b { font-size: 1rem; margin-left: 0; }
+  .lp-map-src { font-size: 11px; margin-top: 12px; }
+  .lp-preview { margin-top: 20px; }
+  .lp-prev-map.tall { height: 280px; margin: 10px; }
+
+  /* Agent section */
+  .lp-agent-grid { gap: 32px; }
+  .lp-agent-note { font-size: 0.85rem; margin-top: 12px; }
+
+  /* Phone carousel */
+  .phone-carousel-track {
+    width: min(260px, 75vw);
+  }
+  .phone { width: min(260px, 75vw); border-radius: 36px; padding: 9px; }
+  .phone-notch { height: 20px; width: 38%; }
+  .phone-screen { border-radius: 28px; }
+
+  /* Revenue cards */
+  .lp-revenue-grid { gap: 12px; margin-top: 32px; }
+  .revenue-card { padding: 20px; }
+  .revenue-ico { width: 44px; height: 44px; margin-bottom: 12px; }
+  .revenue-card h3 { font-size: 1.05rem; }
+  .revenue-card p { font-size: 0.85rem; }
+
+  /* Viabilidad cards */
+  .lp-viabilidad-grid { gap: 12px; margin-top: 32px; }
+  .viabilidad-card { padding: 20px; gap: 14px; flex-direction: column; text-align: center; }
+  .viabilidad-ico { width: 56px; height: 56px; }
+  .viabilidad-card h3 { font-size: 1.15rem; }
+  .viabilidad-card p { font-size: 0.9rem; }
+
+  /* Final CTA */
+  .lp-final-cta { padding: 32px 16px; margin-top: 40px; }
+  .lp-final-cta h3 { font-size: 1.3rem; }
+  .lp-final-cta p { font-size: 0.9rem; margin: 10px auto 20px; }
+
+  /* Footer */
+  .lp-foot { padding: 20px 0; }
+  .lp-foot-inner { flex-direction: column; text-align: center; gap: 12px; }
+  .lp-foot small { font-size: 10px; }
+
+  /* Features (if still used) */
+  .lp-features { gap: 10px; margin-top: 28px; }
+  .feat-inner { padding: 18px; }
+  .feat-ico { width: 40px; height: 40px; }
+  .feat h3 { font-size: 1rem; }
+  .feat p { font-size: 0.85rem; }
+
+  /* Steps (if still used) */
+  .lp-steps { gap: 10px; margin-top: 28px; }
+  .step { padding: 20px; }
+  .step h3 { font-size: 1.05rem; margin-top: 12px; }
+  .step p { font-size: 0.85rem; }
+}
+
+/* Tablet adjustments */
+@media (min-width: 601px) and (max-width: 900px) {
+  .wrap { padding-inline: 20px; }
+
+  .hero-title { font-size: 2.4rem; }
+  .hero-solution-title { font-size: 2rem; }
+
+  .dataflow { padding: 36px 24px; gap: 12px; }
+  .df-source { padding: 12px 14px; }
+  .df-source-icon { width: 36px; height: 36px; }
+
+  .lp-stats-inline { gap: 24px 36px; }
+
+  .lp-revenue-grid { gap: 14px; }
+  .lp-viabilidad-grid { gap: 16px; }
+}
+
+/* Disable scroll snap on mobile for smoother scrolling */
+@media (max-width: 600px) {
+  .lp {
+    scroll-snap-type: none;
+  }
+  .lp-slide {
+    scroll-snap-align: none;
+  }
 }
 
 /* ---------- workspace friendliness ---------- */
